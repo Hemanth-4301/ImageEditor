@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import { saveAs } from "file-saver";
-import ImageComparisonSlider from "react-image-comparison-slider";
 import "../App.css";
 
 const Home = () => {
@@ -153,14 +152,14 @@ const Home = () => {
                     ref={originalRef}
                     src={file}
                     controls
-                    className=" rounded-lg shadow-lg w-full"
+                    className="rounded-lg shadow-lg w-full"
                   ></video>
                 ) : (
                   <img
                     ref={originalRef}
                     src={file}
                     alt="Original"
-                    className=" rounded-lg shadow-lg w-full"
+                    className="rounded-lg shadow-lg w-full"
                   />
                 )}
               </div>
@@ -171,30 +170,22 @@ const Home = () => {
                     ref={processedRef}
                     src={file}
                     controls
-                    className=" rounded-lg shadow-lg w-full"
+                    className="rounded-lg shadow-lg w-full"
                   ></video>
                 ) : (
                   <img
                     ref={processedRef}
                     src={file}
                     alt="Processed"
-                    className=" rounded-lg shadow-lg w-full"
+                    className="rounded-lg shadow-lg w-full"
                   />
                 )}
               </div>
             </div>
-            {/* Image Comparison Slider */}
+
+            {/* Comparison Slider */}
           </div>
         )}
-        <div>
-          <div className="w-full max-w-3xl mt-5">
-            <ImageComparisonSlider
-              image1={file}
-              image2={processedRef.current ? processedRef.current.src : file}
-              alt="Original vs Processed"
-            />
-          </div>
-        </div>
 
         {/* Controls Section */}
         {file && (
