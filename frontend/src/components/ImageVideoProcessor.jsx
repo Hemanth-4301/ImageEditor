@@ -53,9 +53,40 @@ function ImageVideoProcessor({ originalFile, processedFile }) {
     let fileName;
 
     if (isVideo) {
-      downloadUrl = processedFile;
-      fileName = `processed_${originalFile.name}`;
+      // For video, we need to process it similarly to the image
+      const video = videoRef.current;
+      const canvas = document.createElement("canvas");
+      const ctx = canvas.getContext("2d");
+
+      // Assuming the video has a single frame (you may need to process multiple frames for full videos)
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+
+      // Draw the video frame to the canvas and apply filters
+      ctx.filter = getFilterString();
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      // Create a video from the processed canvas
+      canvas.toBlob(
+        (blob) => {
+          downloadUrl = URL.createObjectURL(blob);
+          fileName = `processed_${originalFile.name}`;
+
+          // Trigger the download
+          const link = document.createElement("a");
+          link.href = downloadUrl;
+          link.download = fileName;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+
+          URL.revokeObjectURL(downloadUrl);
+        },
+        "video/mp4", // Specify the video MIME type if necessary
+        0.95 // Quality setting for the video
+      );
     } else {
+      // For images, use the existing code
       const image = new Image();
       image.src = processedFile;
       await new Promise((resolve) => {
@@ -64,16 +95,14 @@ function ImageVideoProcessor({ originalFile, processedFile }) {
       const processedBlob = await applyFilterToImage(image);
       downloadUrl = URL.createObjectURL(processedBlob);
       fileName = `processed_${originalFile.name.replace(/\.[^/.]+$/, "")}.jpg`;
-    }
 
-    const link = document.createElement("a");
-    link.href = downloadUrl;
-    link.download = fileName;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+      const link = document.createElement("a");
+      link.href = downloadUrl;
+      link.download = fileName;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
-    if (!isVideo) {
       URL.revokeObjectURL(downloadUrl);
     }
   };
