@@ -11,7 +11,6 @@ function App() {
   const handleFileUpload = async (uploadedFile) => {
     setFile(uploadedFile);
     setIsLoading(true);
-    // Simulate processing time
     await new Promise((resolve) => setTimeout(resolve, 2000));
     setProcessedFile(URL.createObjectURL(uploadedFile));
     setIsLoading(false);
