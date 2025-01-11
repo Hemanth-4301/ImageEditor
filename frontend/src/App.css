@@ -1,17 +1,74 @@
-.loader {
-  border: 8px solid #f3f3f3;
-  border-top: 8px solid #3498db;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  animation: spin 2s linear infinite;
+.App {
+  text-align: center;
+  padding: 20px;
 }
 
-@keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+.dropzone {
+  border: 2px dashed #cccccc;
+  border-radius: 4px;
+  padding: 20px;
+  text-align: center;
+  cursor: pointer;
+  margin-bottom: 20px;
+}
+
+.processor-container {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.media-container {
+  position: relative;
+  overflow: hidden;
+}
+
+.media-container img,
+.media-container video {
+  width: 100%;
+  display: block;
+}
+
+.processed-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+.processed-overlay img,
+.processed-overlay video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.slider {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  opacity: 0;
+  cursor: ew-resize;
+}
+
+.controls {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.controls label {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.controls input {
+  width: 200px;
 }
